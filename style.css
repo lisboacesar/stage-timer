@@ -1,0 +1,64 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100vh;
+    background: #e0e0e0;
+    margin: 0;
+    font-family: 'Courier New', monospace;
+}
+
+.clock {
+    display: flex;
+    align-items: flex-end;
+    gap: 15px;
+    padding: 40px;
+}
+
+.digit {
+    display: flex;
+    flex-direction: column-reverse; /* Base = número atual */
+    width: 50px;
+    transition: transform 1s ease-in-out;
+    transform-origin: bottom center;
+}
+
+.digit.falling {
+    animation: fall 1.2s forwards;
+}
+
+@keyframes fall {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(90deg) translateY(20px) translateX(60px);
+        opacity: 0.4;
+    }
+}
+
+.number {
+    height: 40px;
+    line-height: 40px;
+    background: linear-gradient(#aaa, #888);
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 6px;
+    margin-top: 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    border: 1px solid #666;
+}
+
+.colon {
+    font-size: 60px;
+    font-weight: bold;
+    color: #444;
+    align-self: center;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0.3; }
+}
