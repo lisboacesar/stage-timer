@@ -1,7 +1,7 @@
 body {
     display: flex;
     justify-content: center;
-    align-items: center; /* Centraliza verticalmente */
+    align-items: center;
     min-height: 100vh;
     background: #e0e0e0;
     margin: 0;
@@ -11,19 +11,20 @@ body {
 .clock {
     display: flex;
     align-items: flex-end;
-    gap: 10px; /* Menor gap para mobile */
+    gap: 15px;
     padding: 20px;
-    max-width: 100%;
-    flex-wrap: wrap; /* Empilha se não couber */
+    max-width: 100vw;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
 .digit {
     display: flex;
     flex-direction: column-reverse;
-    width: 18vw; /* Largura relativa à tela (bom para mobile) */
-    max-width: 80px; /* Limite em telas grandes */
-    transition: transform 1s ease-in-out;
+    width: 60px; /* Largura fixa base */
+    min-width: 50px;
+    max-width: 80px;
+    transition: transform 1.2s ease-in-out;
     transform-origin: bottom center;
 }
 
@@ -33,17 +34,15 @@ body {
 
 @keyframes fall {
     0% { transform: rotate(0deg); }
-    100% { transform: rotate(90deg) translateY(20px) translateX(60px); opacity: 0.4; }
+    100% { transform: rotate(90deg) translateY(30px) translateX(70px); opacity: 0.4; }
 }
 
 .number {
-    height: 8vh; /* Altura relativa à tela (melhor que px fixo) */
-    min-height: 30px;
-    line-height: 1.5;
+    height: 35px; /* Altura fixa para consistência */
+    line-height: 35px;
     background: linear-gradient(#aaa, #888);
     color: #333;
-    font-size: 5vw; /* Fonte relativa */
-    min-font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     text-align: center;
     border-radius: 6px;
@@ -53,47 +52,55 @@ body {
 }
 
 .colon {
-    font-size: 12vw; /* Grande no mobile */
+    font-size: 60px;
     font-weight: bold;
     color: #444;
     align-self: center;
     animation: blink 1s infinite;
-    padding: 0 5px;
+    padding: 0 10px;
 }
 
 @keyframes blink {
     50% { opacity: 0.3; }
 }
 
-/* Media query para telas menores (mobile) */
-@media (max-width: 600px) {
+/* Mobile: telas menores que 768px */
+@media (max-width: 768px) {
     .clock {
-        gap: 8px;
-        padding: 10px;
-        flex-direction: row; /* Mantém horizontal, mas wrap */
+        gap: 10px;
+        padding: 15px;
     }
     .digit {
-        width: 15vw;
+        width: 45px;
         max-width: 60px;
     }
     .number {
-        font-size: 4vw;
-        min-height: 25px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 18px;
     }
     .colon {
-        font-size: 10vw;
+        font-size: 50px;
+        padding: 0 5px;
     }
 }
 
-/* Para telas muito pequenas (ex: iPhone SE) */
-@media (max-width: 400px) {
+/* Mobile muito pequeno (< 480px) */
+@media (max-width: 480px) {
     .clock {
-        flex-direction: column; /* Empilha os dígitos se necessário */
+        flex-direction: column;
         align-items: center;
-        gap: 15px;
+        gap: 20px;
+        padding: 20px;
     }
     .digit {
-        width: 40vw;
-        max-width: 100px;
+        width: 70px;
+    }
+    .number {
+        height: 40px;
+        font-size: 24px;
+    }
+    .colon {
+        font-size: 60px;
     }
 }
