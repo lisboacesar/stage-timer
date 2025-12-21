@@ -10,7 +10,7 @@ const digits = [
 let prevVals = null;
 
 function buildBar(digitEl, value) {
-    digitEl.innerHTML = '';
+    digitEl.innerHTML = ''; // Sempre limpa antes de reconstruir
     for (let i = value; i >= 0; i--) {
         const num = document.createElement('div');
         num.classList.add('number');
@@ -30,24 +30,25 @@ function updateClock() {
     if (prevVals) {
         currentVals.forEach((val, i) => {
             const prev = prevVals[i];
-            // Detecta rollover: quando diminui (ex: 9→0, 59→00 nos minutos, etc.)
-            if (val < prev || (val === 0 && prev === 9)) {
+            // Detecta rollover (diminuição ou reset de 9 para 0)
+            if (val < prev || (val === 0 && prev > val)) {
                 digits[i].classList.add('falling');
+                // Reconstrói após a animação terminar (1.2s + buffer)
                 setTimeout(() => {
                     digits[i].classList.remove('falling');
                     buildBar(digits[i], val);
-                }, 1200); // Tempo da animação
+                }, 1300); // 1300ms = 1.2s da animação + 100ms buffer
             } else {
-                buildBar(digits[i], val);
+                buildBar(digits[i], val); // Atualiza normalmente sem animação
             }
         });
     } else {
+        // Primeira vez: constrói sem animação
         currentVals.forEach((val, i) => buildBar(digits[i], val));
     }
 
     prevVals = currentVals;
 }
 
-// Atualiza a cada segundo
 setInterval(updateClock, 1000);
 updateClock();
