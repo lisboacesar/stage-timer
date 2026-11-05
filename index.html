@@ -1,22 +1,75 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relógio de Barras Caindo com Segundos - Oddly Satisfying</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stage Timer · cronômetro de palco</title>
+  <meta name="description" content="Cronômetro de palco para palestras: o palestrante vê o tempo em letras grandes e a organização controla de outra janela.">
+  <meta name="theme-color" content="#0b0d10">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <div class="clock">
-        <div class="digit" id="h1"></div>
-        <div class="digit" id="h2"></div>
-        <div class="colon" id="colon1">:</div>
-        <div class="digit" id="m1"></div>
-        <div class="digit" id="m2"></div>
-        <div class="colon" id="colon2">:</div>
-        <div class="digit" id="s1"></div>
-        <div class="digit" id="s2"></div>
-    </div>
-    <script src="script.js"></script>
+<body class="control">
+  <header class="control-header">
+    <h1>Stage Timer</h1>
+    <p>Cronômetro de palco. Abra a tela do palco, arraste para o projetor e aperte F para tela cheia. Esta janela fica com você.</p>
+    <button id="open-stage" class="button primary" type="button">Abrir tela do palco</button>
+  </header>
+
+  <main class="control-grid">
+    <section class="card" aria-labelledby="timer-title">
+      <h2 id="timer-title">Tempo</h2>
+      <div id="preview" class="preview" data-phase="ready" aria-live="off">15:00</div>
+      <p id="phase" class="phase" role="status">Pronto para começar</p>
+      <div class="row">
+        <button id="toggle" class="button primary" type="button">Iniciar</button>
+        <button id="reset" class="button" type="button">Zerar</button>
+        <button id="minus" class="button" type="button" aria-label="Tirar 1 minuto">−1 min</button>
+        <button id="plus" class="button" type="button" aria-label="Somar 1 minuto">+1 min</button>
+      </div>
+      <p class="hint">Atalhos: espaço inicia ou pausa, R zera, ↑ e ↓ somam ou tiram 1 minuto.</p>
+    </section>
+
+    <section class="card" aria-labelledby="settings-title">
+      <h2 id="settings-title">Configuração</h2>
+      <form id="settings" class="form">
+        <label>Duração da fala
+          <input id="duration" name="duration" value="15" inputmode="text" autocomplete="off" aria-describedby="duration-hint">
+        </label>
+        <small id="duration-hint">Em minutos (15), mm:ss (15:30) ou horas (1h30).</small>
+        <label>Aviso amarelo quando faltar
+          <input id="warn" name="warn" value="5" inputmode="text" autocomplete="off">
+        </label>
+        <label>Aviso vermelho quando faltar
+          <input id="danger" name="danger" value="1" inputmode="text" autocomplete="off">
+        </label>
+        <p id="settings-error" class="error" role="alert"></p>
+        <button class="button" type="submit">Aplicar e zerar</button>
+      </form>
+    </section>
+
+    <section class="card wide" aria-labelledby="messages-title">
+      <h2 id="messages-title">Mensagem para quem está falando</h2>
+      <div class="row">
+        <button class="button" type="button" data-message="Faltam 5 minutos">Faltam 5 minutos</button>
+        <button class="button" type="button" data-message="Hora das perguntas">Hora das perguntas</button>
+        <button class="button" type="button" data-message="Última pergunta">Última pergunta</button>
+        <button class="button" type="button" data-message="Encerre, por favor">Encerre, por favor</button>
+      </div>
+      <form id="message-form" class="row">
+        <input id="custom-message" maxlength="80" placeholder="Outra mensagem" aria-label="Outra mensagem" autocomplete="off">
+        <button class="button" type="submit">Mostrar</button>
+        <button id="clear-message" class="button" type="button" disabled>Limpar</button>
+      </form>
+      <p class="hint">Na tela agora: <span id="current-message">Nenhuma mensagem na tela.</span></p>
+    </section>
+  </main>
+
+  <footer class="control-footer">
+    <p>Funciona sem internet depois do primeiro acesso. Sem a janela de controle, a tela do palco também aceita os atalhos e um link como <code>stage.html?t=20&amp;warn=5&amp;danger=1</code>.</p>
+  </footer>
+
+  <script type="module" src="src/control.js"></script>
 </body>
 </html>

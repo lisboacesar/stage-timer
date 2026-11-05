@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Palco · Stage Timer</title>
+  <meta name="theme-color" content="#000000">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="stage" data-phase="ready">
+  <p id="message" class="stage-message" hidden></p>
+  <main class="stage-main">
+    <div id="clock" class="stage-clock" aria-live="off">15:00</div>
+    <div id="status" class="stage-status"></div>
+  </main>
+  <div class="stage-progress" aria-hidden="true"><div id="bar" class="stage-bar"></div></div>
+  <p class="stage-hints">Espaço iniciar ou pausar · R zerar · ↑ ↓ mais ou menos 1 minuto · F tela cheia</p>
+  <script type="module" src="src/stage.js"></script>
+</body>
+</html>
